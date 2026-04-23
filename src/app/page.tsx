@@ -6,21 +6,38 @@ import x from "@/styles/app.module.css";
 import y from "@/styles/hoidanit.module.css";
 import AppTable from "@/components/app.table";
 import { useEffect } from "react";
+import useSWR from "swr";
 
 export default function Home() {
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-  const fetchData = async () => {
-    const response = await fetch("http://localhost:8000/blogs");
-    const result = await response.json();
-    console.log(response);
-    console.log(result);
-  };
+  const { data, error, isLoading } = useSWR(
+    "http://localhost:8000/blogs",
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  );
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  // const fetchData = async () => {
+  //   const response = await fetch("http://localhost:8000/blogs");
+  //   const result = await response.json();
+  //   console.log(response);
+  //   console.log(result);
+  // };
+
+  console.log(data);
 
   return (
     <>
+      <div>{data?.length}</div>
+
       <ul>
         <li className={x["red"]}>
           <Link href={"/facebook"}>
