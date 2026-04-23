@@ -21,18 +21,11 @@ export default function Home() {
     },
   );
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  // console.log(data);
 
-  // const fetchData = async () => {
-  //   const response = await fetch("http://localhost:8000/blogs");
-  //   const result = await response.json();
-  //   console.log(response);
-  //   console.log(result);
-  // };
-
-  console.log(data);
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -52,7 +45,7 @@ export default function Home() {
         </li>
       </ul>
 
-      <AppTable />
+      <AppTable blogs={data} />
     </>
   );
 }
