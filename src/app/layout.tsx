@@ -6,6 +6,7 @@ import Header from "@/components/app.header";
 import Footer from "@/components/app.footer";
 import { Container } from "react-bootstrap";
 const inter = Inter({ subsets: ["latin"] });
+import { ToastContainer } from "react-toastify";
 
 export const metadata = {
   title: "Create Next App",
@@ -23,6 +24,18 @@ export default function RootLayout({
         <Header />
         <Container>{children}</Container>
         <Footer />
+        <ToastContainer
+          position="top-right"
+          autoClose={10000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </body>
     </html>
   );
