@@ -11,7 +11,7 @@ interface IProps {
   setShowModalCreate: (value: boolean) => void;
 }
 
-const CreateModal = (props: IProps) => {
+const DeleteModal = (props: IProps) => {
   const { showModalCreate, setShowModalCreate } = props;
 
   const [title, setTitle] = useState<string>("");
@@ -119,4 +119,4 @@ const CreateModal = (props: IProps) => {
   );
 };
 
-export default CreateModal;
+export default DeleteModal;

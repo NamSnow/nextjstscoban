@@ -45,7 +45,11 @@ export default function Home() {
         </li>
       </ul>
 
-      <AppTable blogs={data} />
+      <AppTable
+        blogs={data?.sort(function (a: any, b: any) {
+          return b.id - a.id || b.name.localeCompare(a.name);
+        })}
+      />
     </>
   );
 }

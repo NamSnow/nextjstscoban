@@ -2,6 +2,7 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import CreateModal from "./create.modal";
 import { useState } from "react";
+import EditModal from "@/components/edit.modal";
 
 interface IProps {
   blogs: IBlog[];
@@ -9,8 +10,22 @@ interface IProps {
 
 const AppTable = (props: IPlops) => {
   const { blogs } = props;
-
+  const [blog, setBlog] = useState<IBlog | null>(null);
   const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
+  const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
+  const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
+  const [updateBlog, setUpdateBlog] = useState<object>({});
+  const [deleteBlog, setDeleteBlog] = useState<object>({});
+
+  const handleEditBlog = (blog: any) => {
+    setShowModalEdit(true);
+    setBlog(blog);
+  };
+
+  const handleDeleteBlog = (item: any) => {
+    setShowModalDelete(true);
+    setDeleteBlog(item);
+  };
 
   return (
     <>
@@ -31,18 +46,27 @@ const AppTable = (props: IPlops) => {
           </tr>
         </thead>
         <tbody>
-          {blogs?.map((blog) => {
+          {blogs?.map((item) => {
             return (
-              <tr key={blog.id}>
-                <td>{blog.id}</td>
-                <td>{blog.title}</td>
-                <td>{blog.author}</td>
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.title}</td>
+                <td>{item.author}</td>
                 <td>
                   <Button>View</Button>
-                  <Button variant="warning" className="mx-3">
+                  <Button
+                    variant="warning"
+                    className="mx-3"
+                    onClick={() => handleEditBlog(item)}
+                  >
                     Edit
                   </Button>
-                  <Button variant="danger">Delete</Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDeleteBlog(blog)}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             );
@@ -53,6 +77,13 @@ const AppTable = (props: IPlops) => {
       <CreateModal
         showModalCreate={showModalCreate}
         setShowModalCreate={setShowModalCreate}
+      />
+
+      <EditModal
+        blog={blog}
+        setBlog={setBlog}
+        showModalEdit={showModalEdit}
+        setShowModalEdit={setShowModalEdit}
       />
     </>
   );
