@@ -1,7 +1,12 @@
-"use client";
 import Link from "next/link";
 import x from "@/styles/app.module.css";
 import y from "@/styles/hoidanit.module.css";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "HomePage",
+  description: "...",
+};
 
 export default function Home() {
   return (

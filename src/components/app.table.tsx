@@ -4,6 +4,8 @@ import CreateModal from "./create.modal";
 import { useState } from "react";
 import EditModal from "@/components/edit.modal";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { mutate } from "swr";
 
 interface IProps {
   blogs: IBlog[];
@@ -14,9 +16,6 @@ const AppTable = (props: IPlops) => {
   const [blog, setBlog] = useState<IBlog | null>(null);
   const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
   const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
-  const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
-  const [updateBlog, setUpdateBlog] = useState<object>({});
-  const [deleteBlog, setDeleteBlog] = useState<object>({});
 
   const handleEditBlog = (blog: any) => {
     setShowModalEdit(true);
@@ -24,8 +23,26 @@ const AppTable = (props: IPlops) => {
   };
 
   const handleDeleteBlog = (item: any) => {
-    setShowModalDelete(true);
-    setDeleteBlog(item);
+    if (
+      confirm(`Do you delete id = ${item.id} title = ${item.title}`) === true
+    ) {
+      fetch(`http://localhost:8000/blogs/${item.id}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res) {
+            toast.success("Delete blog success!");
+            mutate("http://localhost:8000/blogs");
+          } else {
+            toast.error("Error");
+          }
+        });
+    }
   };
 
   return (
@@ -66,7 +83,7 @@ const AppTable = (props: IPlops) => {
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() => handleDeleteBlog(blog)}
+                    onClick={() => handleDeleteBlog(item)}
                   >
                     Delete
                   </Button>

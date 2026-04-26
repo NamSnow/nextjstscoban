@@ -24,7 +24,7 @@ const ViewDetailBlog = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div>
-      <Link href={"/"}>Go back</Link>
+      <Link href={"/blogs"}>Go back</Link>
 
       <Card className="text-center">
         <Card.Header>Title: {data?.title}</Card.Header>
