@@ -22,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <Container>{children}</Container>
+        <Container style={{ minHeight: "calc(100vh - 80px)" }}>
+          {children}
+        </Container>
         <Footer />
         <ToastContainer
           position="top-right"

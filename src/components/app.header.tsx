@@ -15,14 +15,8 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav className="me-auto">
-              <Link href={"/facebook"} className="nav-link">
-                Facebook
-              </Link>
-              <Link href={"/tiktok"} className="nav-link">
-                Tiktok
-              </Link>
-              <Link href={"/youtube"} className="nav-link">
-                Youtube
+              <Link href={"/blogs"} className="nav-link">
+                Blogs
               </Link>
             </Nav>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
